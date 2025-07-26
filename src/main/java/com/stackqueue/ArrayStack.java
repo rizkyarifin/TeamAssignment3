@@ -16,65 +16,46 @@ public class ArrayStack {
     private int top;
     private int maxSize;
     
-    // Constructor - sudah selesai, tidak perlu diubah
     public ArrayStack(int size) {
         this.maxSize = size;
         this.stackArray = new char[maxSize];
         this.top = -1;
     }
     
-    /**
-     * TODO ANGGOTA 1: Implementasikan method push()
-     * Method untuk menambahkan elemen ke stack
-     * @param item karakter yang akan ditambahkan
-     */
     public void push(char item) {
-        // IMPLEMENTASI DISINI
-        // Hint: Cek apakah stack sudah penuh, jika tidak tambahkan item dan increment top
+        if (isFull()) {
+            System.out.println("Stack full tidak bisa menambah lagi");
+        }
+        top++;
+        stackArray[top] = item;
+        System.out.println("Berhasil menambahkan item ke stack");
     }
     
-    /**
-     * TODO ANGGOTA 1: Implementasikan method pop()
-     * Method untuk mengambil dan menghapus elemen teratas dari stack
-     * @return karakter teratas dari stack
-     */
     public char pop() {
-        // IMPLEMENTASI DISINI
-        // Hint: Cek apakah stack kosong, jika tidak ambil item dan decrement top
-        return ' '; // Ganti dengan implementasi yang benar
+        if (isEmpty()) {
+            System.out.println("Stack masih kosong");
+            return '\0';
+        }
+
+        char poppedItem = stackArray[top];
+        top--;
+        return poppedItem;
     }
     
-    /**
-     * TODO ANGGOTA 1: Implementasikan method peek()
-     * Method untuk melihat elemen teratas tanpa menghapusnya
-     * @return karakter teratas dari stack
-     */
     public char peek() {
-        // IMPLEMENTASI DISINI
-        // Hint: Return elemen di posisi top tanpa mengubah top
-        return ' '; // Ganti dengan implementasi yang benar
+        if (isEmpty()) {
+            System.out.println("Stack kosong tidak bisa peek");
+            return '\0';
+        }
+        return stackArray[top];
     }
     
-    /**
-     * TODO ANGGOTA 1: Implementasikan method isEmpty()
-     * Method untuk mengecek apakah stack kosong
-     * @return true jika stack kosong, false jika tidak
-     */
     public boolean isEmpty() {
-        // IMPLEMENTASI DISINI
-        // Hint: Stack kosong jika top == -1
-        return false; // Ganti dengan implementasi yang benar
+        return top == -1;
     }
     
-    /**
-     * TODO ANGGOTA 1: Implementasikan method isFull()
-     * Method untuk mengecek apakah stack penuh
-     * @return true jika stack penuh, false jika tidak
-     */
     public boolean isFull() {
-        // IMPLEMENTASI DISINI
-        // Hint: Stack penuh jika top == maxSize - 1
-        return false; // Ganti dengan implementasi yang benar
+        return top == maxSize -1;
     }
     
     // Method untuk debugging - sudah selesai, tidak perlu diubah
