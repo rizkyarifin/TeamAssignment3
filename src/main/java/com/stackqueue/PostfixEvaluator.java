@@ -1,7 +1,7 @@
 package com.stackqueue;
 
 /**
- * TUGAS ANGGOTA 3: Muhammad [Nama Anggota 3]
+ * TUGAS ANGGOTA 3:  [Vinsensius I.Wuisan]
  * 
  * Evaluasi ekspresi Postfix untuk mendapatkan hasil perhitungan
  * Bobot: 10% dari total nilai
@@ -13,44 +13,51 @@ package com.stackqueue;
  * 
  * Contoh: "5 4 2 / +" -> 5 + (4/2) = 7
  */
+
+import java.util.Stack;
+
 public class PostfixEvaluator {
     
-    /**
-     * TODO ANGGOTA 3: Implementasikan method evaluatePostfix()
-     * Method utama untuk mengevaluasi ekspresi postfix
-     * @param postfix string notasi postfix yang akan dievaluasi
-     * @return hasil perhitungan dalam bentuk integer
-     */
+    
     public static int evaluatePostfix(String postfix) {
-        // IMPLEMENTASI DISINI
-        
-        // Hint: Algorithm Evaluasi Postfix:
-        // 1. Buat stack untuk menyimpan operand (gunakan Stack<Integer> atau array)
-        // 2. Scan postfix dari kiri ke kanan:
-        //    - Jika operand (angka), push ke stack
-        //    - Jika operator:
-        //      * Pop dua operand dari stack (op2 = pop(), op1 = pop())
-        //      * Hitung hasil = op1 operator op2
-        //      * Push hasil ke stack
-        // 3. Hasil akhir adalah elemen terakhir di stack
-        
-        return 0; // Ganti dengan implementasi yang benar
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < postfix.length(); i++) {
+            char c = postfix.charAt(i);
+
+            if (Character.isWhitespace(c)) continue;
+
+            if (Character.isDigit(c)) {
+                // Konversi char ke int
+                stack.push(c - '0');
+            } else if (isOperator(c)) {
+                int b = stack.pop();
+                int a = stack.pop();
+                int result = 0;
+
+                switch (c) {
+                    case '+': result = a + b; break;
+                    case '-': result = a - b; break;
+                    case '*': result = a * b; break;
+                    case '/': result = a / b; break;
+                }
+
+                stack.push(result);
+            }
+        }
+
+        return stack.pop();
     }
     
-    /**
-     * TODO ANGGOTA 3: Implementasikan method performOperation()
-     * Method helper untuk melakukan operasi aritmatika
-     * @param op1 operand pertama
-     * @param op2 operand kedua
-     * @param operator operator yang akan digunakan
-     * @return hasil operasi
-     */
+    
     private static int performOperation(int op1, int op2, char operator) {
-        // IMPLEMENTASI DISINI
-        // Hint: 
-        // switch case untuk +, -, *, /
-        // Perhatikan urutan operand untuk - dan /
-        return 0; // Ganti dengan implementasi yang benar
+        switch (operator) {
+        case '+': return op1 + op2;
+        case '-': return op1 - op2;
+        case '*': return op1 * op2;
+        case '/': return op1 / op2;
+        default: return 0;
+        }
     }
     
     /**
@@ -71,10 +78,8 @@ public class PostfixEvaluator {
      * @param c karakter yang akan dicek
      * @return true jika karakter adalah angka (0-9), false jika tidak
      */
-    private static boolean isDigit(char c) {
-        // IMPLEMENTASI DISINI
-        // Hint: Cek apakah c >= '0' && c <= '9'
-        return false; // Ganti dengan implementasi yang benar
+    private static boolean isOperator(char c) {
+        return c == '+' || c == '-' || c == '*' || c == '/';
     }
     
     // Method untuk testing - sudah selesai, tidak perlu diubah
