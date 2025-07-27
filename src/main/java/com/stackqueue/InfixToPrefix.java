@@ -1,7 +1,7 @@
 package com.stackqueue;
 
 /**
- * TUGAS ANGGOTA 3: Muhammad [Nama Anggota 3]
+ * TUGAS ANGGOTA 3: [Vinsensius I. Wuisan]
  * 
  * Konversi dari notasi Infix ke Prefix menggunakan Stack
  * Bobot: Bagian dari 10% Case 1
@@ -22,42 +22,81 @@ public class InfixToPrefix {
      * @return string notasi prefix hasil konversi
      */
     public static String convertToPrefix(String infix) {
-        // IMPLEMENTASI DISINI
-        
-        // Hint: Algorithm untuk Infix ke Prefix:
-        // 1. Reverse string infix
-        // 2. Ganti '(' menjadi ')' dan sebaliknya (jika ada kurung)
-        // 3. Gunakan modified Shunting Yard algorithm:
-        //    - Sama seperti postfix tapi dengan aturan precedence yang sedikit berbeda
-        // 4. Reverse hasil akhir
-        
-        return ""; // Ganti dengan implementasi yang benar
+       String reversed = reverseString(infix);
+        Stack<Character> operators = new Stack<>();
+        Stack<String> operands = new Stack<>();
+
+        for (int i = 0; i < reversed.length(); i++) {
+            char c = reversed.charAt(i);
+
+            if (Character.isWhitespace(c)) continue;
+
+            if (Character.isDigit(c)) {
+                StringBuilder number = new StringBuilder();
+                while (i < reversed.length() && Character.isDigit(reversed.charAt(i))) {
+                    number.insert(0, reversed.charAt(i));
+                    i++;
+                }
+                i--;
+                operands.push(number.toString());
+            } else if (c == ')') {
+                operators.push(c);
+            } else if (c == '(') {
+                while (!operators.isEmpty() && operators.peek() != ')') {
+                    String op1 = operands.pop();
+                    String op2 = operands.pop();
+                    char op = operators.pop();
+                    operands.push(op + op1 + op2);
+                }
+                if (!operators.isEmpty()) {
+                    operators.pop();
+                }
+            } else if (isOperator(c)) {
+                while (!operators.isEmpty() && getPrecedence(operators.peek()) > getPrecedence(c)) {
+                    String op1 = operands.pop();
+                    String op2 = operands.pop();
+                    char op = operators.pop();
+                    operands.push(op + op1 + op2);
+                }
+                operators.push(c);
+            }
+        }
+
+        while (!operators.isEmpty()) {
+            String op1 = operands.pop();
+            String op2 = operands.pop();
+            char op = operators.pop();
+            operands.push(op + op1 + op2);
+        }
+
+        return operands.peek();
     }
+
+    // Main method untuk testing lokal
+    public static void main(String[] args) {
+        String infix = "5 + 4 / 2";
+        String prefix = convertToPrefix(infix);
+        System.out.println("Infix : " + infix);
+        System.out.println("Prefix: " + prefix);
+    }
+}
     
-    /**
-     * TODO ANGGOTA 3: Implementasikan method reverseString()
-     * Method helper untuk membalik string
-     * @param str string yang akan dibalik
-     * @return string yang sudah dibalik
-     */
+    
     private static String reverseString(String str) {
         // IMPLEMENTASI DISINI
         // Hint: Gunakan StringBuilder dan method reverse(), atau loop manual
-        return ""; // Ganti dengan implementasi yang benar
+        return new StringBuilder(str).reverse().toString(); 
     }
     
-    /**
-     * TODO ANGGOTA 3: Implementasikan method getPrecedence()
-     * Method helper untuk mendapatkan precedence operator
-     * @param operator karakter operator
-     * @return nilai precedence (angka yang lebih besar = precedence lebih tinggi)
-     */
+   
     private static int getPrecedence(char operator) {
-        // IMPLEMENTASI DISINI
-        // Hint: Sama seperti di InfixToPostfix
-        // *, / memiliki precedence 2
-        // +, - memiliki precedence 1
-        return 0; // Ganti dengan implementasi yang benar
+        switch (operator) {
+        case '+':
+        case '-': return 1;
+        case '*':
+        case '/': return 2;
+        default: return -1;
+        }
     }
     
     /**
@@ -67,9 +106,7 @@ public class InfixToPrefix {
      * @return true jika karakter adalah operator (+, -, *, /), false jika tidak
      */
     private static boolean isOperator(char c) {
-        // IMPLEMENTASI DISINI
-        // Hint: Sama seperti di class lain
-        return false; // Ganti dengan implementasi yang benar
+        return c == '+' || c == '-' || c == '*' || c == '/';
     }
     
     // Method untuk testing - sudah selesai, tidak perlu diubah
