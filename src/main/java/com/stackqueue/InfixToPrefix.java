@@ -15,12 +15,7 @@ package com.stackqueue;
  */
 public class InfixToPrefix {
     
-    /**
-     * TODO ANGGOTA 3: Implementasikan method convertToPrefix()
-     * Method utama untuk mengkonversi infix ke prefix
-     * @param infix string notasi infix yang akan dikonversi
-     * @return string notasi prefix hasil konversi
-     */
+    
     public static String convertToPrefix(String infix) {
        String reversed = reverseString(infix);
         Stack<Character> operators = new Stack<>();
@@ -83,8 +78,6 @@ public class InfixToPrefix {
     
     
     private static String reverseString(String str) {
-        // IMPLEMENTASI DISINI
-        // Hint: Gunakan StringBuilder dan method reverse(), atau loop manual
         return new StringBuilder(str).reverse().toString(); 
     }
     
@@ -99,12 +92,7 @@ public class InfixToPrefix {
         }
     }
     
-    /**
-     * TODO ANGGOTA 3: Implementasikan method isOperator()
-     * Method helper untuk mengecek apakah karakter adalah operator
-     * @param c karakter yang akan dicek
-     * @return true jika karakter adalah operator (+, -, *, /), false jika tidak
-     */
+    
     private static boolean isOperator(char c) {
         return c == '+' || c == '-' || c == '*' || c == '/';
     }
