@@ -1,7 +1,7 @@
 package com.stackqueue;
 
 /**
- * TUGAS ANGGOTA 2: Muhammad [Nama Anggota 2]
+ * TUGAS ANGGOTA 2: Dwi Rizky Fitriana
  * 
  * Konversi dari notasi Infix ke Postfix menggunakan Stack
  * Bobot: 10% dari total nilai
@@ -16,50 +16,76 @@ package com.stackqueue;
 public class InfixToPostfix {
     
     /**
-     * TODO ANGGOTA 2: Implementasikan method convertToPostfix()
      * Method utama untuk mengkonversi infix ke postfix
      * @param infix string notasi infix yang akan dikonversi
      * @return string notasi postfix hasil konversi
      */
     public static String convertToPostfix(String infix) {
-        // IMPLEMENTASI DISINI
-        
-        // Hint: Algorithm Shunting Yard:
-        // 1. Buat stack untuk operator dan StringBuilder untuk hasil
-        // 2. Scan infix dari kiri ke kanan:
-        //    - Jika operand (angka), tambahkan ke hasil
-        //    - Jika operator:
-        //      * Pop operator dari stack yang precedence-nya >= operator saat ini
-        //      * Push operator saat ini ke stack
-        // 3. Pop semua operator yang tersisa dari stack ke hasil
-        
-        return ""; // Ganti dengan implementasi yang benar
+        com.stackqueue.LinkedListStack stack = new com.stackqueue.LinkedListStack();
+        StringBuilder output = new StringBuilder();
+
+        for (int i = 0; i < infix.length(); i++) {
+            char ch = infix.charAt(i);
+
+
+            if (ch == ' ') continue; // Skip Spasi
+
+            if (Character.isDigit(ch)) {
+                output.append(ch);
+                if (i + 1 >= infix.length() || !Character.isDigit(infix.charAt(i + 1))) {
+                    output.append(' ');
+                }
+            } else if (isOperator(ch)) {
+                while (!stack.isEmpty() && isOperator(stack.peek()) && getPrecedence(stack.peek()) >= getPrecedence(ch)) {
+                    output.append(stack.pop()).append(' ');
+                }
+                stack.push(ch);
+            } else if (ch == '(') {
+                stack.push(ch);
+            } else if (ch == ')') {
+                while (!stack.isEmpty() && stack.peek() != '(') {
+                    output.append(stack.pop()).append(' ');
+                }
+                if (!stack.isEmpty() && stack.peek() == '(') {
+                    stack.pop();
+                }
+            }
+        }
+
+        while (!stack.isEmpty()) {
+            char op = stack.pop();
+            if (op == '(' || op == ')') continue;
+            output.append(op).append(' ');
+        }
+
+        return output.toString().trim();
     }
     
     /**
-     * TODO ANGGOTA 2: Implementasikan method getPrecedence()
      * Method helper untuk mendapatkan precedence operator
      * @param operator karakter operator
      * @return nilai precedence (angka yang lebih besar = precedence lebih tinggi)
      */
     private static int getPrecedence(char operator) {
-        // IMPLEMENTASI DISINI
-        // Hint: 
-        // *, / memiliki precedence 2
-        // +, - memiliki precedence 1
-        return 0; // Ganti dengan implementasi yang benar
+        switch (operator) {
+            case '+':
+                case '-':
+                    return 1;
+                    case '*':
+                        case '/':
+                            return 2;
+            default:
+                    return 0;
+        }
     }
     
     /**
-     * TODO ANGGOTA 2: Implementasikan method isOperator()
      * Method helper untuk mengecek apakah karakter adalah operator
      * @param c karakter yang akan dicek
      * @return true jika karakter adalah operator (+, -, *, /), false jika tidak
      */
     private static boolean isOperator(char c) {
-        // IMPLEMENTASI DISINI
-        // Hint: Sama seperti di InfixValidator
-        return false; // Ganti dengan implementasi yang benar
+        return c == '+' || c == '-' || c == '*' || c == '/';
     }
     
     // Method untuk testing - sudah selesai, tidak perlu diubah
