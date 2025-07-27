@@ -3,7 +3,7 @@ package com.stackqueue;
 import java.util.Scanner;
 
 /**
- * TUGAS ANGGOTA 4: Muhammad [Nama Anggota 4]
+ * TUGAS ANGGOTA 4: Muhammad Rizky Arifin
  * 
  * Program utama dengan User Interface sederhana
  * Bobot: 25% dari total nilai
@@ -24,7 +24,7 @@ public class Main {
         System.out.println("1. Tofik Hidayat - ArrayStack & Validation");
         System.out.println("2. Dwi Rizky Fitriana - LinkedListStack & Infix to Postfix");
         System.out.println("3. Vincent - Infix to Prefix & Postfix Evaluation");
-        System.out.println("4. [Nama Anggota 4] - Prefix Evaluation & Main Program");
+        System.out.println("4. Muhammad Rizky Arifin - Prefix Evaluation & Main Program");
         System.out.println("5. [Nama Anggota 5] - Queue Implementation");
         System.out.println();
         

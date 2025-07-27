@@ -1,7 +1,7 @@
 package com.stackqueue;
 
 /**
- * TUGAS ANGGOTA 4: Muhammad [Nama Anggota 4]
+ * TUGAS ANGGOTA 4: Muhammad Rizky Arifin
  * 
  * Evaluasi ekspresi Prefix untuk mendapatkan hasil perhitungan
  * Bobot: Bagian dari 10% Case 1
