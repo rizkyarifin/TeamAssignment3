@@ -1,67 +1,61 @@
 package com.stackqueue;
 
 /**
- * TUGAS ANGGOTA 1: Muhammad [Nama Anggota 1]
+ * TUGAS ANGGOTA 1: Tofik Hidayat
  * 
  * Validator untuk memvalidasi notasi infix
  * Bobot: 20% dari total nilai
- * 
- * TODO YANG HARUS DIKERJAKAN:
- * 1. Implementasikan method isValidInfix() untuk memvalidasi input
- * 2. Pastikan validasi mencakup:
- *    - Operator dan operand harus bergantian
- *    - Tidak boleh diawali atau diakhiri dengan operator
- *    - Kurung harus seimbang (jika ada)
- *    - Hanya boleh mengandung angka, operator (+, -, *, /), dan spasi
- * 
- * Contoh valid: "5 + 4 / 2", "3 * 2 + 1"
- * Contoh tidak valid: "5 + +", "+ 5", "5 +"
  */
 public class InfixValidator {
-    
+
     /**
-     * TODO ANGGOTA 1: Implementasikan method isValidInfix()
      * Method untuk memvalidasi apakah string input adalah notasi infix yang valid
-     * @param expression string ekspresi yang akan divalidasi
-     * @return true jika valid, false jika tidak valid
      */
     public static boolean isValidInfix(String expression) {
-        // IMPLEMENTASI DISINI
-        
-        // Hint: Langkah-langkah yang bisa dilakukan:
-        // 1. Hapus semua spasi dari expression
-        // 2. Cek apakah expression kosong
-        // 3. Cek apakah dimulai atau diakhiri dengan operator
-        // 4. Cek apakah operator dan operand bergantian dengan benar
-        // 5. Cek apakah hanya mengandung karakter yang diizinkan
-        
-        return false; // Ganti dengan implementasi yang benar
+        if (expression == null || expression.trim().isEmpty()) {
+            return false;
+        }
+
+        String[] tokens = expression.trim().split(" ");
+        int balance = 0;
+        boolean expectOperand = true;
+
+        for (String token : tokens) {
+            if (token.equals("(")) {
+                balance++;
+                continue;
+            } else if (token.equals(")")) {
+                balance--;
+                if (balance < 0) return false;
+                continue;
+            }
+
+            char c = token.charAt(0);
+            if (token.length() > 1 && !token.matches("\\d+")) {
+                return false;
+            }
+
+            if (isOperand(c)) {
+                if (!expectOperand) return false;
+                expectOperand = false;
+            } else if (isOperator(c)) {
+                if (expectOperand) return false;
+                expectOperand = true;
+            } else {
+                return false;
+            }
+        }
+        return !expectOperand && balance == 0;
     }
-    
-    /**
-     * TODO ANGGOTA 1: Implementasikan method isOperator()
-     * Method helper untuk mengecek apakah karakter adalah operator
-     * @param c karakter yang akan dicek
-     * @return true jika karakter adalah operator (+, -, *, /), false jika tidak
-     */
+
     private static boolean isOperator(char c) {
-        // IMPLEMENTASI DISINI
-        // Hint: Cek apakah c adalah salah satu dari: +, -, *, /
-        return false; // Ganti dengan implementasi yang benar
+        return c == '+' || c == '-' || c == '*' || c == '/';
     }
-    
-    /**
-     * TODO ANGGOTA 1: Implementasikan method isOperand()
-     * Method helper untuk mengecek apakah karakter adalah operand (angka)
-     * @param c karakter yang akan dicek
-     * @return true jika karakter adalah angka (0-9), false jika tidak
-     */
+
     private static boolean isOperand(char c) {
-        // IMPLEMENTASI DISINI
-        // Hint: Cek apakah c adalah digit (0-9)
-        return false; // Ganti dengan implementasi yang benar
+        return Character.isDigit(c);
     }
-    
+
     // Method untuk testing - sudah selesai, tidak perlu diubah
     public static void testValidation() {
         System.out.println("=== Testing Infix Validation ===");
@@ -71,11 +65,16 @@ public class InfixValidator {
             "5 + +",        // Invalid
             "+ 5",          // Invalid
             "5 +",          // Invalid
-            "5 * 4 - 2 / 1" // Valid
+            "5 * 4 - 2 / 1",// Valid
+            "5 4 +",        // Invalid
+            "( 5 + 3 ) * 2",// Valid
+            "( ( 2 + 3 )",  // Invalid - unbalanced
+            "2 + 3 )",      // Invalid - unbalanced
+            "a + b"         // Invalid - karakter tidak valid
         };
-        
+
         for (String test : testCases) {
-            System.out.println("'" + test + "' -> " + 
+            System.out.println("'" + test + "' -> " +
                 (isValidInfix(test) ? "VALID" : "INVALID"));
         }
     }
