@@ -1,7 +1,7 @@
 package com.stackqueue;
 
 /**
- * TUGAS ANGGOTA 5: Muhammad [Nama Anggota 5]
+ * TUGAS ANGGOTA 5: Meggi Kasandra
  * 
  * Implementasi Queue untuk menghitung jumlah item dalam antrian
  * Bobot: 35% dari total nilai
@@ -25,11 +25,11 @@ public class SimpleQueue {
      * @param size ukuran maksimum queue
      */
     public SimpleQueue(int size) {
-        // IMPLEMENTASI DISINI
-        // Hint:
-        // - Set maxSize = size
-        // - Buat array dengan ukuran size
-        // - Inisialisasi front = 0, rear = -1, currentSize = 0
+        this.maxSize = size;
+        this.queueArray = new String[maxSize];
+        this.front = 0;
+        this.rear = -1;
+        this.currentSize = 0;
     }
     
     /**
@@ -38,14 +38,15 @@ public class SimpleQueue {
      * @param item string yang akan ditambahkan ke queue
      */
     public void enqueue(String item) {
-        // IMPLEMENTASI DISINI
-        // Hint:
-        // 1. Cek apakah queue sudah penuh
-        // 2. Jika tidak penuh:
-        //    - Increment rear (dengan handling circular array)
-        //    - Masukkan item ke queueArray[rear]
-        //    - Increment currentSize
-        // 3. Jika penuh, tampilkan pesan error
+        if (isFull()) {
+            System.out.println("Queue penuh! Tidak bisa menambahkan item: " + item);
+            return;
+        }
+        
+        rear = (rear + 1) % maxSize; // Circular array
+        queueArray[rear] = item;
+        currentSize++;
+        System.out.println("Item '" + item + "' berhasil ditambahkan ke queue");
     }
     
     /**
@@ -54,16 +55,16 @@ public class SimpleQueue {
      * @return item yang diambil dari queue
      */
     public String dequeue() {
-        // IMPLEMENTASI DISINI
-        // Hint:
-        // 1. Cek apakah queue kosong
-        // 2. Jika tidak kosong:
-        //    - Ambil item dari queueArray[front]
-        //    - Increment front (dengan handling circular array)
-        //    - Decrement currentSize
-        //    - Return item
-        // 3. Jika kosong, return null atau tampilkan pesan error
-        return null; // Ganti dengan implementasi yang benar
+        if (isEmpty()) {
+            System.out.println("Queue kosong! Tidak ada item untuk dihapus");
+            return null;
+        }
+        
+        String removedItem = queueArray[front];
+        queueArray[front] = null; // Clear reference
+        front = (front + 1) % maxSize; // Circular array
+        currentSize--;
+        return removedItem;
     }
     
     /**
@@ -72,9 +73,7 @@ public class SimpleQueue {
      * @return jumlah item dalam queue
      */
     public int size() {
-        // IMPLEMENTASI DISINI
-        // Hint: Return currentSize
-        return 0; // Ganti dengan implementasi yang benar
+        return currentSize;
     }
     
     /**
@@ -83,9 +82,7 @@ public class SimpleQueue {
      * @return true jika queue kosong, false jika tidak
      */
     public boolean isEmpty() {
-        // IMPLEMENTASI DISINI
-        // Hint: Queue kosong jika currentSize == 0
-        return false; // Ganti dengan implementasi yang benar
+        return currentSize == 0;
     }
     
     /**
@@ -94,9 +91,7 @@ public class SimpleQueue {
      * @return true jika queue penuh, false jika tidak
      */
     public boolean isFull() {
-        // IMPLEMENTASI DISINI
-        // Hint: Queue penuh jika currentSize == maxSize
-        return false; // Ganti dengan implementasi yang benar
+        return currentSize == maxSize;
     }
     
     /**
@@ -104,11 +99,21 @@ public class SimpleQueue {
      * Method untuk menampilkan isi queue
      */
     public void display() {
-        // IMPLEMENTASI DISINI
-        // Hint:
-        // 1. Cek apakah queue kosong
-        // 2. Jika tidak kosong, tampilkan semua item dari front sampai rear
-        // 3. Handle circular array dengan benar
+        if (isEmpty()) {
+            System.out.println("Queue kosong");
+            return;
+        }
+        
+        System.out.print("Queue contents (front to rear): ");
+        for (int i = 0; i < currentSize; i++) {
+            int index = (front + i) % maxSize;
+            System.out.print(queueArray[index]);
+            if (i < currentSize - 1) {
+                System.out.print(" <- ");
+            }
+        }
+        System.out.println();
+        System.out.println("Queue size: " + currentSize + "/" + maxSize);
     }
     
     /**
@@ -117,9 +122,11 @@ public class SimpleQueue {
      * @return item terdepan dalam queue
      */
     public String peek() {
-        // IMPLEMENTASI DISINI
-        // Hint: Return queueArray[front] jika queue tidak kosong
-        return null; // Ganti dengan implementasi yang benar
+        if (isEmpty()) {
+            System.out.println("Queue kosong! Tidak ada item untuk dilihat");
+            return null;
+        }
+        return queueArray[front];
     }
     
     // Method untuk testing - sudah selesai, tidak perlu diubah
