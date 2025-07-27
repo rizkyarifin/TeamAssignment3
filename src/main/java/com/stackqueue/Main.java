@@ -25,7 +25,7 @@ public class Main {
         System.out.println("2. Dwi Rizky Fitriana - LinkedListStack & Infix to Postfix");
         System.out.println("3. Vincent - Infix to Prefix & Postfix Evaluation");
         System.out.println("4. Muhammad Rizky Arifin - Prefix Evaluation & Main Program");
-        System.out.println("5. [Nama Anggota 5] - Queue Implementation");
+        System.out.println("5. Meggi Kasandra - Queue Implementation");
         System.out.println();
         
         /**

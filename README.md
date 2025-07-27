@@ -1,5 +1,12 @@
 # Team Assignment 3: Stack & Queue Implementation
 
+## Team Members
+1. **Tofik Hidayat** - ArrayStack & Validation (20%)
+2. **Dwi Rizky Fitriana** - LinkedListStack & Infix to Postfix (10%)
+3. **Vincent** - Infix to Prefix & Postfix Evaluation (10%)
+4. **Muhammad Rizky Arifin** - Prefix Evaluation & Main Program (25%)
+5. **Meggi Kasandra** - Queue Implementation (35%)
+
 ## Deskripsi Tugas
 Program implementasi Stack dan Queue dalam Java untuk menyelesaikan dua case study utama:
 1. **Case 1**: Konversi dan evaluasi notasi Infix, Postfix, dan Prefix menggunakan Stack
@@ -22,7 +29,7 @@ src/main/java/com/stackqueue/
 
 ## Pembagian Tugas Tim
 
-### **Anggota 1: [Nama Anggota 1]**
+### **Anggota 1: Tofik Hidayat**
 **Bobot: 20%**
 - **File**: `ArrayStack.java`, `InfixValidator.java`
 - **Tugas**:
@@ -30,24 +37,27 @@ src/main/java/com/stackqueue/
   - Validasi input notasi infix
   - Method: `push()`, `pop()`, `peek()`, `isEmpty()`, `isFull()`
   - Validasi: operator/operand bergantian, tidak diawali/diakhiri operator
+- **Status**: ✅ SELESAI
 
-### **Anggota 2: [Nama Anggota 2]**
+### **Anggota 2: Dwi Rizky Fitriana**
 **Bobot: 10%**
 - **File**: `LinkedListStack.java`, `InfixToPostfix.java`
 - **Tugas**:
   - Implementasi Stack menggunakan Linked List
   - Konversi Infix ke Postfix menggunakan Shunting Yard Algorithm
   - Handle operator precedence (*, / > +, -)
+- **Status**: ✅ SELESAI
 
-### **Anggota 3: [Nama Anggota 3]**
+### **Anggota 3: Vincent**
 **Bobot: 10%**
 - **File**: `InfixToPrefix.java`, `PostfixEvaluator.java`
 - **Tugas**:
   - Konversi Infix ke Prefix
   - Evaluasi ekspresi Postfix untuk mendapatkan hasil perhitungan
   - Handle operasi aritmatika: +, -, *, /
+- **Status**: ✅ SELESAI
 
-### **Anggota 4: [Nama Anggota 4]**
+### **Anggota 4: Muhammad Rizky Arifin**
 **Bobot: 25%**
 - **File**: `PrefixEvaluator.java`, `Main.java`
 - **Tugas**:
@@ -55,14 +65,16 @@ src/main/java/com/stackqueue/
   - Program utama dengan User Interface
   - Integrasi semua komponen
   - Tampilan hasil yang rapi
+- **Status**: ✅ SELESAI
 
-### **Anggota 5: [Nama Anggota 5]**
+### **Anggota 5: Meggi Kasandra**
 **Bobot: 35%**
 - **File**: `SimpleQueue.java`, `QueueDemo.java`
 - **Tugas**:
   - Implementasi Queue untuk Case 2
   - Program demo penghitung item dalam antrian
   - Method: `enqueue()`, `dequeue()`, `size()`, `isEmpty()`, `display()`
+- **Status**: ❌ BELUM
 
 ## Cara Menjalankan Program
 
