@@ -74,7 +74,7 @@ src/main/java/com/stackqueue/
   - Implementasi Queue untuk Case 2
   - Program demo penghitung item dalam antrian
   - Method: `enqueue()`, `dequeue()`, `size()`, `isEmpty()`, `display()`
-- **Status**: ❌ BELUM
+- **Status**: ✅ SELESAI
 
 ## Cara Menjalankan Program
 
