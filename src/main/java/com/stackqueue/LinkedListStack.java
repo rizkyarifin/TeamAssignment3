@@ -1,7 +1,7 @@
 package com.stackqueue;
 
 /**
- * TUGAS ANGGOTA 2: Muhammad [Nama Anggota 2]
+ * TUGAS ANGGOTA 2: Dwi Rizky Fitriana
  * 
  * Implementasi Stack menggunakan Linked List
  * Bobot: Bagian dari 10% Case 1
@@ -14,17 +14,16 @@ package com.stackqueue;
 public class LinkedListStack {
     
     /**
-     * TODO ANGGOTA 2: Buat inner class Node
      * Class untuk menyimpan data dan referensi ke node berikutnya
      */
     private class Node {
-        // IMPLEMENTASI DISINI
-        // Hint: Node harus memiliki:
-        // - char data untuk menyimpan karakter
-        // - Node next untuk referensi ke node berikutnya
-        
-        // Constructor untuk Node
-        // public Node(char data) { ... }
+       char data;
+       Node next;
+
+       public Node(char data) {
+           this.data = data;
+           this.next = null;
+       }
     }
     
     private Node top; // Pointer ke node teratas
@@ -35,53 +34,47 @@ public class LinkedListStack {
     }
     
     /**
-     * TODO ANGGOTA 2: Implementasikan method push()
      * Method untuk menambahkan elemen ke stack
      * @param item karakter yang akan ditambahkan
      */
     public void push(char item) {
-        // IMPLEMENTASI DISINI
-        // Hint: 
-        // 1. Buat node baru dengan data = item
-        // 2. Set next dari node baru = top yang lama
-        // 3. Update top menjadi node baru
+        Node newNode = new Node(item);
+        newNode.next = top;
+        top = newNode;
     }
     
     /**
-     * TODO ANGGOTA 2: Implementasikan method pop()
      * Method untuk mengambil dan menghapus elemen teratas dari stack
      * @return karakter teratas dari stack
      */
     public char pop() {
-        // IMPLEMENTASI DISINI
-        // Hint:
-        // 1. Cek apakah stack kosong
-        // 2. Simpan data dari top
-        // 3. Update top menjadi top.next
-        // 4. Return data yang disimpan
-        return ' '; // Ganti dengan implementasi yang benar
+        if (isEmpty()) {
+            throw new RuntimeException("Stack kosong");
+        }
+
+        char data = top.data;
+        top = top.next;
+        return data;
     }
     
     /**
-     * TODO ANGGOTA 2: Implementasikan method peek()
      * Method untuk melihat elemen teratas tanpa menghapusnya
      * @return karakter teratas dari stack
      */
     public char peek() {
-        // IMPLEMENTASI DISINI
-        // Hint: Cek apakah stack kosong, jika tidak return top.data
-        return ' '; // Ganti dengan implementasi yang benar
+        if (isEmpty()) {
+            throw new RuntimeException("Stack kosong");
+        }
+
+        return top.data;
     }
     
     /**
-     * TODO ANGGOTA 2: Implementasikan method isEmpty()
      * Method untuk mengecek apakah stack kosong
      * @return true jika stack kosong, false jika tidak
      */
     public boolean isEmpty() {
-        // IMPLEMENTASI DISINI
-        // Hint: Stack kosong jika top == null
-        return false; // Ganti dengan implementasi yang benar
+        return top == null;
     }
     
     // Method untuk debugging - sudah selesai, tidak perlu diubah
