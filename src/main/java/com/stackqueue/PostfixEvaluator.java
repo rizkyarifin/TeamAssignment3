@@ -67,9 +67,7 @@ public class PostfixEvaluator {
      * @return true jika karakter adalah operator (+, -, *, /), false jika tidak
      */
     private static boolean isOperator(char c) {
-        // IMPLEMENTASI DISINI
-        // Hint: Sama seperti di class lain
-        return false; // Ganti dengan implementasi yang benar
+        return c == '+' || c == '-' || c == '*' || c == '/';
     }
     
     /**
@@ -78,8 +76,8 @@ public class PostfixEvaluator {
      * @param c karakter yang akan dicek
      * @return true jika karakter adalah angka (0-9), false jika tidak
      */
-    private static boolean isOperator(char c) {
-        return c == '+' || c == '-' || c == '*' || c == '/';
+    private static boolean isDigit(char c) {
+        return Character.isDigit(c);
     }
     
     // Method untuk testing - sudah selesai, tidak perlu diubah

@@ -1,5 +1,7 @@
 package com.stackqueue;
 
+import java.util.Stack;
+
 /**
  * TUGAS ANGGOTA 3: [Vinsensius I. Wuisan]
  * 
@@ -41,7 +43,7 @@ public class InfixToPrefix {
                     String op1 = operands.pop();
                     String op2 = operands.pop();
                     char op = operators.pop();
-                    operands.push(op + op1 + op2);
+                    operands.push(op + " " + op1 + " " + op2);
                 }
                 if (!operators.isEmpty()) {
                     operators.pop();
@@ -51,7 +53,7 @@ public class InfixToPrefix {
                     String op1 = operands.pop();
                     String op2 = operands.pop();
                     char op = operators.pop();
-                    operands.push(op + op1 + op2);
+                    operands.push(op + " " + op1 + " " + op2);
                 }
                 operators.push(c);
             }
@@ -61,7 +63,7 @@ public class InfixToPrefix {
             String op1 = operands.pop();
             String op2 = operands.pop();
             char op = operators.pop();
-            operands.push(op + op1 + op2);
+            operands.push(op + " " + op1 + " " + op2);
         }
 
         return operands.peek();
@@ -74,7 +76,6 @@ public class InfixToPrefix {
         System.out.println("Infix : " + infix);
         System.out.println("Prefix: " + prefix);
     }
-}
     
     
     private static String reverseString(String str) {

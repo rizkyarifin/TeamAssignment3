@@ -22,19 +22,38 @@ public class PrefixEvaluator {
      * @return hasil perhitungan dalam bentuk integer
      */
     public static int evaluatePrefix(String prefix) {
-        // IMPLEMENTASI DISINI
+        java.util.Stack<Integer> stack = new java.util.Stack<>();
+        String[] tokens = prefix.trim().split(" ");
         
-        // Hint: Algorithm Evaluasi Prefix:
-        // 1. Buat stack untuk menyimpan operand (gunakan Stack<Integer> atau array)
-        // 2. Scan prefix dari KANAN ke KIRI:
-        //    - Jika operand (angka), push ke stack
-        //    - Jika operator:
-        //      * Pop dua operand dari stack (op1 = pop(), op2 = pop())
-        //      * Hitung hasil = op1 operator op2
-        //      * Push hasil ke stack
-        // 3. Hasil akhir adalah elemen terakhir di stack
+        // Scan dari kanan ke kiri
+        for (int i = tokens.length - 1; i >= 0; i--) {
+            String token = tokens[i];
+            
+            if (token.isEmpty()) continue;
+            
+            char firstChar = token.charAt(0);
+            
+            // Jika operand (angka atau angka negatif)
+            if (Character.isDigit(firstChar) || (token.length() > 1 && firstChar == '-')) {
+                stack.push(Integer.parseInt(token));
+            }
+            // Jika operator
+            else if (isOperator(firstChar) && token.length() == 1) {
+                if (stack.size() < 2) {
+                    throw new RuntimeException("Invalid prefix expression");
+                }
+                int op1 = stack.pop();
+                int op2 = stack.pop();
+                int result = performOperation(op1, op2, firstChar);
+                stack.push(result);
+            }
+        }
         
-        return 0; // Ganti dengan implementasi yang benar
+        if (stack.size() != 1) {
+            throw new RuntimeException("Invalid prefix expression");
+        }
+        
+        return stack.pop();
     }
     
     /**
@@ -46,11 +65,21 @@ public class PrefixEvaluator {
      * @return hasil operasi
      */
     private static int performOperation(int op1, int op2, char operator) {
-        // IMPLEMENTASI DISINI
-        // Hint: 
-        // switch case untuk +, -, *, /
-        // Sama seperti di PostfixEvaluator
-        return 0; // Ganti dengan implementasi yang benar
+        switch (operator) {
+            case '+':
+                return op1 + op2;
+            case '-':
+                return op1 - op2;
+            case '*':
+                return op1 * op2;
+            case '/':
+                if (op2 == 0) {
+                    throw new ArithmeticException("Division by zero");
+                }
+                return op1 / op2;
+            default:
+                throw new IllegalArgumentException("Invalid operator: " + operator);
+        }
     }
     
     /**
@@ -60,9 +89,7 @@ public class PrefixEvaluator {
      * @return true jika karakter adalah operator (+, -, *, /), false jika tidak
      */
     private static boolean isOperator(char c) {
-        // IMPLEMENTASI DISINI
-        // Hint: Sama seperti di class lain
-        return false; // Ganti dengan implementasi yang benar
+        return c == '+' || c == '-' || c == '*' || c == '/';
     }
     
     /**
@@ -72,9 +99,7 @@ public class PrefixEvaluator {
      * @return true jika karakter adalah angka (0-9), false jika tidak
      */
     private static boolean isDigit(char c) {
-        // IMPLEMENTASI DISINI
-        // Hint: Sama seperti di PostfixEvaluator
-        return false; // Ganti dengan implementasi yang benar
+        return Character.isDigit(c);
     }
     
     // Method untuk testing - sudah selesai, tidak perlu diubah
